@@ -1,0 +1,20 @@
+Dockerfile
+docker-compose.yml
+.dockerignore
+.git
+.gitignore
+.env
+.venv
+venv/
+tests/
+test.db
+test_integration.db
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pytest_cache
+.mypy_cache
+*.log
+*.db-journal
+# Add other files or directories that should not be included in the Docker image
