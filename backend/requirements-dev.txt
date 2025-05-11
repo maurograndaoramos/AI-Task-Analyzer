@@ -1,0 +1,7 @@
+pytest
+pytest-asyncio
+respx
+ruff
+crewai
+pysqlite3-binary
+langchain-community
