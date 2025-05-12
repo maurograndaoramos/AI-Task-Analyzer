@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '..', '.env'))  # Explicitly load project root .env
+print("DEBUG: GEMINI_API_KEY =", os.getenv("GEMINI_API_KEY"))
+
 from crewai import Task, Crew
 from app.agents.task_analyzer_agent import TaskAnalyzerAgents
 from app.api.v1.schemas import TaskCreate

@@ -6,8 +6,9 @@ from langchain_community.chat_models import ChatLiteLLM # Use ChatLiteLLM
 # It's good practice to load API keys from environment variables
 # Ensure GEMINI_API_KEY is set in your environment
 # For local development, you might use a .env file and python-dotenv
-# from dotenv import load_dotenv
-# load_dotenv()
+from dotenv import load_dotenv
+import os
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '..', '.env'))  # Explicitly load project root .env
 
 class TaskAnalyzerAgents:
     def make_task_analyzer_agent(self) -> Agent:
