@@ -1,0 +1,50 @@
+# Version control
+.git/
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+*.egg
+
+# Environment
+.env
+venv/
+.venv/
+env/
+
+# Development
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test files
+tests/
+.pytest_cache/
+.coverage
+
+# Caches
+.mypy_cache/
+.ruff_cache/
+
+# Data and logs (mounted as volumes)
+data/
+logs/
+*.log
+*.sqlite3
+
+# Build and docs
+docs/
+*.md
+!README.md
+requirements.txt
+!requirements.prod.txt
+
+# Development config
+setup.py
+setup.sh
+Makefile
+MANIFEST.in
