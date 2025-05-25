@@ -1,6 +1,13 @@
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Union # Add Union
 from pydantic import BaseModel, Field
 from datetime import datetime
+
+class ErrorResponse(BaseModel):
+    """Standard error response"""
+    error: str
+    detail: Optional[str] = None
+
+ErrorSchema = ErrorResponse # Alias for use in other schemas and for import
 
 class UserStory(BaseModel):
     """User story details"""
@@ -28,7 +35,16 @@ class DatabaseTable(BaseModel):
     name: str
     fields: List[DatabaseField]
     relationships: Optional[List[Dict[str, str]]] = None
-    indexes: Optional[List[str]] = None
+    indexes: Optional[List[str]] = None # Reverted to list of strings
+
+# class DatabaseIndex(BaseModel): # Removing this model
+#     """Database index definition"""
+#     name: str
+#     columns: List[str]
+#     unique: Optional[bool] = False
+#     description: Optional[str] = None
+
+# No need to re-declare DatabaseTable as the original declaration will now be correct.
 
 class SecurityVulnerability(BaseModel):
     """Security vulnerability details"""
@@ -59,11 +75,30 @@ class SprintPlan(BaseModel):
 
 class InfrastructureConfig(BaseModel):
     """Infrastructure configuration"""
-    compute: Dict[str, Any]
-    storage: Dict[str, Any]
-    ci_cd: Dict[str, Any]
-    monitoring: List[str]
-    security_measures: List[str]
+    # These were the original fields, now likely nested or different
+    # compute: Dict[str, Any]
+    # storage: Dict[str, Any]
+    # ci_cd: Dict[str, Any]
+    # monitoring: List[str]
+    # security_measures: List[str]
+
+    # Based on LLM output, it seems to be a nested structure.
+    # Let's define it to accept the common structure seen in logs.
+    # The LLM output for infrastructure_plan was:
+    # {
+    #   "infrastructure": { "compute": ..., "storage": ..., "network": ... },
+    #   "ci_cd": { ... },
+    #   "monitoring": { "application": ..., "database": ... },
+    #   "security_measures": { "web_application_firewall": ..., ... }
+    # }
+    # The Task schema expects InfrastructureConfig directly for infrastructure_plan.
+    # So, InfrastructureConfig should model this entire structure.
+
+    infrastructure: Optional[Dict[str, Any]] = None # For compute, storage, network
+    ci_cd: Optional[Dict[str, Any]] = None
+    monitoring: Optional[Dict[str, Any]] = None # Was List[str], now Dict
+    security_measures: Optional[Dict[str, Any]] = None # Was List[str], now Dict
+
 
 class AgentExecution(BaseModel):
     """Agent execution record"""
@@ -111,20 +146,20 @@ class Task(TaskBase):
     priority: Optional[str] = None
     
     # Product and UX analysis
-    user_stories: Optional[List[UserStory]] = None
-    ux_recommendations: Optional[List[UXRecommendation]] = None
+    user_stories: Optional[Union[List[UserStory], ErrorSchema]] = None
+    ux_recommendations: Optional[Union[List[UXRecommendation], ErrorSchema]] = None
     
     # Technical analysis
-    database_design: Optional[List[DatabaseTable]] = None
-    technical_tasks: Optional[List[TechnicalTask]] = None
+    database_design: Optional[Union[List[DatabaseTable], ErrorSchema]] = None
+    technical_tasks: Optional[Union[List[TechnicalTask], ErrorSchema]] = None
     
     # Quality analysis
-    test_strategy: Optional[Dict[str, Any]] = None
-    security_analysis: Optional[Dict[str, Any]] = None
+    test_strategy: Optional[Union[Dict[str, Any], ErrorSchema]] = None
+    security_analysis: Optional[Union[Dict[str, Any], ErrorSchema]] = None
     
     # Operations planning
-    timeline_estimate: Optional[Dict[str, Any]] = None
-    infrastructure_plan: Optional[InfrastructureConfig] = None
+    timeline_estimate: Optional[Union[Dict[str, Any], ErrorSchema]] = None
+    infrastructure_plan: Optional[Union[InfrastructureConfig, ErrorSchema]] = None
 
     class Config:
         from_attributes = True
@@ -133,15 +168,15 @@ class TaskAnalysisResult(BaseModel):
     """Combined analysis results"""
     category: Optional[str] = None
     priority: Optional[str] = None
-    user_stories: Optional[List[UserStory]] = None
-    ux_recommendations: Optional[List[UXRecommendation]] = None
-    database_design: Optional[List[DatabaseTable]] = None
-    technical_tasks: Optional[List[TechnicalTask]] = None
-    test_strategy: Optional[Dict[str, Any]] = None
-    security_analysis: Optional[Dict[str, Any]] = None
-    timeline_estimate: Optional[Dict[str, Any]] = None
-    infrastructure_plan: Optional[InfrastructureConfig] = None
-    error: Optional[str] = None
+    user_stories: Optional[Union[List[UserStory], ErrorSchema]] = None
+    ux_recommendations: Optional[Union[List[UXRecommendation], ErrorSchema]] = None
+    database_design: Optional[Union[List[DatabaseTable], ErrorSchema]] = None
+    technical_tasks: Optional[Union[List[TechnicalTask], ErrorSchema]] = None
+    test_strategy: Optional[Union[Dict[str, Any], ErrorSchema]] = None
+    security_analysis: Optional[Union[Dict[str, Any], ErrorSchema]] = None
+    timeline_estimate: Optional[Union[Dict[str, Any], ErrorSchema]] = None
+    infrastructure_plan: Optional[Union[InfrastructureConfig, ErrorSchema]] = None
+    error: Optional[str] = None # This field might become redundant if errors are per-analysis-item
 
 class AgentConfig(BaseModel):
     """Agent configuration"""
@@ -153,8 +188,3 @@ class AgentConfig(BaseModel):
 
     class Config:
         from_attributes = True
-
-class ErrorResponse(BaseModel):
-    """Standard error response"""
-    error: str
-    detail: Optional[str] = None

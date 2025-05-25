@@ -1,8 +1,10 @@
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Union
 from crewai import Agent, Task, Crew
 import json
 import logging
 from ..agent_base import AgentBase
+from ....utils.json_parser import robust_json_parser # Import the new parser
+from ....api.v1.schemas import ErrorSchema # Import ErrorSchema for typing and structure
 
 logger = logging.getLogger(__name__)
 
@@ -74,19 +76,26 @@ class TechnicalAgents(AgentBase):
         """
         if not self.has_valid_llm():
             logger.warning("DB architect agent has no valid LLM configuration")
-            return {
-                "tables": [],
-                "error": "LLM not configured or initialization failed"
-            }
+            return ErrorSchema(
+                error="LLM Error",
+                message="LLM not configured or initialization failed for DB Architect Agent.",
+                agent_type="db_architect"
+            ).model_dump(exclude_none=True)
 
         architect = self.make_db_architect()
         
         design_task = Task(
-            description=f"Design a database schema based on these user stories:\n"
-                      f"{json.dumps(user_stories, indent=2)}\n"
-                      f"Context: {context}\n"
-                      f"Create a JSON object defining the database schema, including tables, "
-                      f"fields, relationships, and indexing recommendations.",
+            description=(
+                f"Design a database schema based on these user stories:\n"
+                f"{json.dumps(user_stories, indent=2)}\n"
+                f"Context: {context}\n"
+                f"Create a JSON object defining the database schema. The main key should be 'tables', containing a list of table objects.\n"
+                f"Each table object must have 'name' (string), 'fields' (list of field objects), and can optionally have 'relationships' (list of relationship objects) and 'indexes' (list of strings).\n"
+                f"Each field object must have 'name' (string) and 'type' (string, e.g., VARCHAR(255), INTEGER, TEXT, BOOLEAN, TIMESTAMP, UUID). Optional field attributes are 'primary_key' (boolean), 'indexed' (boolean, but prefer defining specific indexes in the table's 'indexes' list), 'unique' (boolean), 'not_null' (boolean), 'default' (any), and 'description' (string).\n"
+                f"Each relationship object (if present) should specify 'table' (string, related table name), 'type' (string, e.g., 'one_to_one', 'one_to_many'), and 'foreign_key' (string, column name).\n"
+                f"The 'indexes' field for a table (if present) must be a list of strings. Each string represents a column to be indexed (e.g., 'email') or a comma-separated list of columns for a composite index (e.g., 'user_id,order_date').\n"
+                f"Optionally, include a top-level 'recommendations' key with a list of strings for best practices."
+            ),
             agent=architect,
             expected_output='A JSON object containing database design. Example:\n'
                           '{\n'
@@ -117,34 +126,38 @@ class TechnicalAgents(AgentBase):
             logger.info("Designing database schema...")
             result = crew.kickoff()
             
-            result_str = str(result)
-            json_start = result_str.find('{')
-            json_end = result_str.rfind('}') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                try:
-                    return json.loads(result_str[json_start:json_end])
-                except json.JSONDecodeError as e:
-                    logger.error(f"Failed to parse JSON from schema design: {e}")
-                    return {
-                        "tables": [],
-                        "error": f"JSON parsing error: {e}"
-                    }
+            parsed_json = robust_json_parser(str(result), context="DB Schema Design")
+            if parsed_json:
+                # Basic validation: check if 'tables' key exists, adapt as needed
+                if "tables" in parsed_json and isinstance(parsed_json["tables"], list):
+                    return parsed_json
+                else:
+                    logger.warning(f"Parsed JSON for DB schema design is missing 'tables' list. Output: {str(result)[:500]}")
+                    return ErrorSchema(
+                        error="Invalid JSON Structure",
+                        message="Parsed JSON for DB schema design is missing 'tables' list or has incorrect type.",
+                        agent_type="db_architect",
+                        raw_output=str(result)
+                    ).model_dump(exclude_none=True)
             else:
-                return {
-                    "tables": [],
-                    "error": "No valid JSON found in design result"
-                }
+                logger.error(f"Failed to parse JSON from DB schema design. Raw output: {str(result)[:500]}")
+                return ErrorSchema(
+                    error="JSON Parsing Error",
+                    message="Failed to parse JSON output from DB Architect Agent.",
+                    agent_type="db_architect",
+                    raw_output=str(result)
+                ).model_dump(exclude_none=True)
                 
         except Exception as e:
-            logger.error(f"Error during schema design: {e}")
-            return {
-                "tables": [],
-                "error": f"Design error: {e}"
-            }
+            logger.error(f"Error during schema design: {e}", exc_info=True)
+            return ErrorSchema(
+                error="Agent Execution Error",
+                message=f"An unexpected error occurred during DB schema design: {str(e)}",
+                agent_type="db_architect"
+            ).model_dump(exclude_none=True)
 
     async def break_down_tasks(self, feature_description: str, user_stories: List[Dict], 
-                             database_design: Dict, context: str = "") -> dict:
+                             database_design: Dict, context: str = "") -> Union[dict, ErrorSchema]:
         """
         Break down implementation into technical tasks using the tech lead agent.
         
@@ -159,10 +172,11 @@ class TechnicalAgents(AgentBase):
         """
         if not self.has_valid_llm():
             logger.warning("Tech lead agent has no valid LLM configuration")
-            return {
-                "tasks": [],
-                "error": "LLM not configured or initialization failed"
-            }
+            return ErrorSchema(
+                error="LLM Error",
+                message="LLM not configured or initialization failed for Tech Lead Agent.",
+                agent_type="tech_lead"
+            ).model_dump(exclude_none=True)
 
         tech_lead = self.make_tech_lead()
         
@@ -201,33 +215,37 @@ class TechnicalAgents(AgentBase):
             logger.info(f"Breaking down tasks for: {feature_description[:50]}...")
             result = crew.kickoff()
             
-            result_str = str(result)
-            json_start = result_str.find('{')
-            json_end = result_str.rfind('}') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                try:
-                    return json.loads(result_str[json_start:json_end])
-                except json.JSONDecodeError as e:
-                    logger.error(f"Failed to parse JSON from task breakdown: {e}")
-                    return {
-                        "tasks": [],
-                        "error": f"JSON parsing error: {e}"
-                    }
+            parsed_json = robust_json_parser(str(result), context="Task Breakdown")
+            if parsed_json:
+                # Basic validation: check if 'tasks' key exists, adapt as needed
+                if "tasks" in parsed_json and isinstance(parsed_json["tasks"], list):
+                    return parsed_json
+                else:
+                    logger.warning(f"Parsed JSON for task breakdown is missing 'tasks' list. Output: {str(result)[:500]}")
+                    return ErrorSchema(
+                        error="Invalid JSON Structure",
+                        message="Parsed JSON for task breakdown is missing 'tasks' list or has incorrect type.",
+                        agent_type="tech_lead",
+                        raw_output=str(result)
+                    ).model_dump(exclude_none=True)
             else:
-                return {
-                    "tasks": [],
-                    "error": "No valid JSON found in breakdown result"
-                }
+                logger.error(f"Failed to parse JSON from task breakdown. Raw output: {str(result)[:500]}")
+                return ErrorSchema(
+                    error="JSON Parsing Error",
+                    message="Failed to parse JSON output from Tech Lead Agent.",
+                    agent_type="tech_lead",
+                    raw_output=str(result)
+                ).model_dump(exclude_none=True)
                 
         except Exception as e:
-            logger.error(f"Error during task breakdown: {e}")
-            return {
-                "tasks": [],
-                "error": f"Breakdown error: {e}"
-            }
+            logger.error(f"Error during task breakdown: {e}", exc_info=True)
+            return ErrorSchema(
+                error="Agent Execution Error",
+                message=f"An unexpected error occurred during task breakdown: {str(e)}",
+                agent_type="tech_lead"
+            ).model_dump(exclude_none=True)
 
-    async def review_implementation(self, tasks: List[Dict], code_snippets: List[Dict]) -> dict:
+    async def review_implementation(self, tasks: List[Dict], code_snippets: List[Dict]) -> Union[dict, ErrorSchema]:
         """
         Review implementation plan and code snippets using the code reviewer agent.
         
@@ -240,10 +258,11 @@ class TechnicalAgents(AgentBase):
         """
         if not self.has_valid_llm():
             logger.warning("Code reviewer agent has no valid LLM configuration")
-            return {
-                "feedback": [],
-                "error": "LLM not configured or initialization failed"
-            }
+            return ErrorSchema(
+                error="LLM Error",
+                message="LLM not configured or initialization failed for Code Reviewer Agent.",
+                agent_type="code_reviewer"
+            ).model_dump(exclude_none=True)
 
         reviewer = self.make_code_reviewer()
         
@@ -278,31 +297,37 @@ class TechnicalAgents(AgentBase):
             logger.info("Reviewing implementation plan...")
             result = crew.kickoff()
             
-            result_str = str(result)
-            json_start = result_str.find('{')
-            json_end = result_str.rfind('}') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                try:
-                    return json.loads(result_str[json_start:json_end])
-                except json.JSONDecodeError as e:
-                    logger.error(f"Failed to parse JSON from code review: {e}")
-                    return {
-                        "feedback": [],
-                        "error": f"JSON parsing error: {e}"
-                    }
+            parsed_json = robust_json_parser(str(result), context="Code Review")
+            if parsed_json:
+                # Check for successful structure AND absence of an 'error' key from LLM
+                if "feedback" in parsed_json and isinstance(parsed_json["feedback"], list) and "error" not in parsed_json:
+                    return parsed_json # This is the successful data
+                else:
+                    # If "feedback" is missing, or it's not a list, OR if an "error" key is present in the parsed JSON
+                    logger.warning(f"Parsed JSON for code review is invalid or contains an error field. Output: {str(result)[:500]}")
+                    return ErrorSchema(
+                        error="Invalid JSON Structure or LLM Error",
+                        message="Parsed JSON for code review is missing 'feedback' list, has incorrect type, or contains an error indicator from the LLM.",
+                        agent_type="code_reviewer",
+                        raw_output=str(result)
+                    ).model_dump(exclude_none=True)
             else:
-                return {
-                    "feedback": [],
-                    "error": "No valid JSON found in review result"
-                }
+                # robust_json_parser failed
+                logger.error(f"Failed to parse JSON from code review. Raw output: {str(result)[:500]}")
+                return ErrorSchema(
+                    error="JSON Parsing Error",
+                    message="Failed to parse JSON output from Code Reviewer Agent.",
+                    agent_type="code_reviewer",
+                    raw_output=str(result)
+                ).model_dump(exclude_none=True)
                 
         except Exception as e:
-            logger.error(f"Error during code review: {e}")
-            return {
-                "feedback": [],
-                "error": f"Review error: {e}"
-            }
+            logger.error(f"Error during code review: {e}", exc_info=True)
+            return ErrorSchema(
+                error="Agent Execution Error",
+                message=f"An unexpected error occurred during code review: {str(e)}",
+                agent_type="code_reviewer"
+            ).model_dump(exclude_none=True)
 
 if __name__ == "__main__":
     import asyncio

@@ -1,8 +1,10 @@
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List, Union # Added List, Union
 from crewai import Agent, Task, Crew
 import json
 import logging
 from ..agent_base import AgentBase
+from ....utils.json_parser import robust_json_parser # Import the new parser
+from ....api.v1.schemas import ErrorSchema # Import ErrorSchema for typing and structure
 
 logger = logging.getLogger(__name__)
 
@@ -58,10 +60,11 @@ class ProductAgents(AgentBase):
         """
         if not self.has_valid_llm():
             logger.warning("Product manager agent has no valid LLM configuration")
-            return {
-                "user_stories": [],
-                "error": "LLM not configured or initialization failed"
-            }
+            return ErrorSchema(
+                error="LLM Error",
+                message="LLM not configured or initialization failed for Product Manager Agent.",
+                agent_type="product_manager"
+            ).model_dump(exclude_none=True)
 
         pm_agent = self.make_product_manager()
         
@@ -93,35 +96,37 @@ class ProductAgents(AgentBase):
             logger.info(f"Generating user stories for: {feature_description[:50]}...")
             result = crew.kickoff()
             
-            # Parse the result
-            result_str = str(result)
-            json_start = result_str.find('{')
-            json_end = result_str.rfind('}') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                try:
-                    parsed_result = json.loads(result_str[json_start:json_end])
-                    return parsed_result
-                except json.JSONDecodeError as e:
-                    logger.error(f"Failed to parse JSON from result: {e}")
-                    return {
-                        "user_stories": [],
-                        "error": f"JSON parsing error: {e}"
-                    }
+            parsed_json = robust_json_parser(str(result), context="User Stories Generation")
+            if parsed_json:
+                # Basic validation: check if 'user_stories' key exists
+                if "user_stories" in parsed_json and isinstance(parsed_json["user_stories"], list):
+                    return parsed_json
+                else:
+                    logger.warning(f"Parsed JSON for user stories is missing 'user_stories' list. Output: {str(result)[:500]}")
+                    return ErrorSchema(
+                        error="Invalid JSON Structure",
+                        message="Parsed JSON for user stories is missing 'user_stories' list or has incorrect type.",
+                        agent_type="product_manager",
+                        raw_output=str(result)
+                    ).model_dump(exclude_none=True)
             else:
-                return {
-                    "user_stories": [],
-                    "error": "No valid JSON found in result"
-                }
+                logger.error(f"Failed to parse JSON from user stories generation. Raw output: {str(result)[:500]}")
+                return ErrorSchema(
+                    error="JSON Parsing Error",
+                    message="Failed to parse JSON output from Product Manager Agent.",
+                    agent_type="product_manager",
+                    raw_output=str(result)
+                ).model_dump(exclude_none=True)
                 
         except Exception as e:
-            logger.error(f"Error generating user stories: {e}")
-            return {
-                "user_stories": [],
-                "error": f"Generation error: {e}"
-            }
+            logger.error(f"Error generating user stories: {e}", exc_info=True)
+            return ErrorSchema(
+                error="Agent Execution Error",
+                message=f"An unexpected error occurred during user story generation: {str(e)}",
+                agent_type="product_manager"
+            ).model_dump(exclude_none=True)
 
-    async def analyze_ux(self, feature_description: str, user_stories: list, context: str = "") -> dict:
+    async def analyze_ux(self, feature_description: str, user_stories: list, context: str = "") -> Union[dict, ErrorSchema]:
         """
         Analyze UX implications of a feature using the UX designer agent.
         
@@ -135,10 +140,11 @@ class ProductAgents(AgentBase):
         """
         if not self.has_valid_llm():
             logger.warning("UX designer agent has no valid LLM configuration")
-            return {
-                "recommendations": [],
-                "error": "LLM not configured or initialization failed"
-            }
+            return ErrorSchema(
+                error="LLM Error",
+                message="LLM not configured or initialization failed for UX Designer Agent.",
+                agent_type="ux_designer"
+            ).model_dump(exclude_none=True)
 
         ux_agent = self.make_ux_designer()
         
@@ -173,32 +179,37 @@ class ProductAgents(AgentBase):
             logger.info(f"Analyzing UX for: {feature_description[:50]}...")
             result = crew.kickoff()
             
-            # Parse the result
-            result_str = str(result)
-            json_start = result_str.find('{')
-            json_end = result_str.rfind('}') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                try:
-                    return json.loads(result_str[json_start:json_end])
-                except json.JSONDecodeError as e:
-                    logger.error(f"Failed to parse JSON from UX analysis: {e}")
-                    return {
-                        "recommendations": [],
-                        "error": f"JSON parsing error: {e}"
-                    }
+            parsed_json = robust_json_parser(str(result), context="UX Analysis")
+            if parsed_json:
+                # Check for successful structure AND absence of an 'error' key from LLM
+                if "recommendations" in parsed_json and isinstance(parsed_json["recommendations"], list) and "error" not in parsed_json:
+                    return parsed_json # This is the successful data
+                else:
+                    # If "recommendations" is missing, or it's not a list, OR if an "error" key is present in the parsed JSON
+                    logger.warning(f"Parsed JSON for UX analysis is invalid or contains an error field. Output: {str(result)[:500]}")
+                    return ErrorSchema(
+                        error="Invalid JSON Structure or LLM Error",
+                        message="Parsed JSON for UX analysis is missing 'recommendations' list, has incorrect type, or contains an error indicator from the LLM.",
+                        agent_type="ux_designer",
+                        raw_output=str(result)
+                    ).model_dump(exclude_none=True)
             else:
-                return {
-                    "recommendations": [],
-                    "error": "No valid JSON found in analysis"
-                }
+                # robust_json_parser failed
+                logger.error(f"Failed to parse JSON from UX analysis. Raw output: {str(result)[:500]}")
+                return ErrorSchema(
+                    error="JSON Parsing Error",
+                    message="Failed to parse JSON output from UX Designer Agent.",
+                    agent_type="ux_designer",
+                    raw_output=str(result)
+                ).model_dump(exclude_none=True)
                 
         except Exception as e:
-            logger.error(f"Error during UX analysis: {e}")
-            return {
-                "recommendations": [],
-                "error": f"Analysis error: {e}"
-            }
+            logger.error(f"Error during UX analysis: {e}", exc_info=True)
+            return ErrorSchema(
+                error="Agent Execution Error",
+                message=f"An unexpected error occurred during UX analysis: {str(e)}",
+                agent_type="ux_designer"
+            ).model_dump(exclude_none=True)
 
 if __name__ == "__main__":
     import asyncio

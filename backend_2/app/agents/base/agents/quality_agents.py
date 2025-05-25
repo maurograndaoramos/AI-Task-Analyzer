@@ -1,8 +1,10 @@
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Union # Added Union
 from crewai import Agent, Task, Crew
 import json
 import logging
 from ..agent_base import AgentBase
+from ....utils.json_parser import robust_json_parser # Import the new parser
+from ....api.v1.schemas import ErrorSchema # Import ErrorSchema for typing and structure
 
 logger = logging.getLogger(__name__)
 
@@ -59,10 +61,11 @@ class QualityAgents(AgentBase):
         """
         if not self.has_valid_llm():
             logger.warning("QA strategist agent has no valid LLM configuration")
-            return {
-                "test_strategy": {},
-                "error": "LLM not configured or initialization failed"
-            }
+            return ErrorSchema(
+                error="LLM Error",
+                message="LLM not configured or initialization failed for QA Strategist Agent.",
+                agent_type="qa_strategist"
+            ).model_dump(exclude_none=True)
 
         qa = self.make_qa_strategist()
         
@@ -109,34 +112,38 @@ class QualityAgents(AgentBase):
             logger.info(f"Designing test strategy for: {feature_description[:50]}...")
             result = crew.kickoff()
             
-            result_str = str(result)
-            json_start = result_str.find('{')
-            json_end = result_str.rfind('}') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                try:
-                    return json.loads(result_str[json_start:json_end])
-                except json.JSONDecodeError as e:
-                    logger.error(f"Failed to parse JSON from test strategy: {e}")
-                    return {
-                        "test_strategy": {},
-                        "error": f"JSON parsing error: {e}"
-                    }
+            parsed_json = robust_json_parser(str(result), context="Test Strategy Design")
+            if parsed_json:
+                # Basic validation: check if 'test_levels' key exists (as per example output)
+                if "test_levels" in parsed_json and isinstance(parsed_json["test_levels"], dict):
+                    return parsed_json
+                else:
+                    logger.warning(f"Parsed JSON for test strategy is missing 'test_levels' dict. Output: {str(result)[:500]}")
+                    return ErrorSchema(
+                        error="Invalid JSON Structure",
+                        message="Parsed JSON for test strategy is missing 'test_levels' dict or has incorrect type.",
+                        agent_type="qa_strategist",
+                        raw_output=str(result)
+                    ).model_dump(exclude_none=True)
             else:
-                return {
-                    "test_strategy": {},
-                    "error": "No valid JSON found in strategy result"
-                }
+                logger.error(f"Failed to parse JSON from test strategy design. Raw output: {str(result)[:500]}")
+                return ErrorSchema(
+                    error="JSON Parsing Error",
+                    message="Failed to parse JSON output from QA Strategist Agent.",
+                    agent_type="qa_strategist",
+                    raw_output=str(result)
+                ).model_dump(exclude_none=True)
                 
         except Exception as e:
-            logger.error(f"Error during test strategy design: {e}")
-            return {
-                "test_strategy": {},
-                "error": f"Strategy design error: {e}"
-            }
+            logger.error(f"Error during test strategy design: {e}", exc_info=True)
+            return ErrorSchema(
+                error="Agent Execution Error",
+                message=f"An unexpected error occurred during test strategy design: {str(e)}",
+                agent_type="qa_strategist"
+            ).model_dump(exclude_none=True)
 
     async def analyze_security(self, feature_description: str, technical_specs: Dict,
-                           data_handling: Dict = None, context: str = "") -> dict:
+                           data_handling: Dict = None, context: str = "") -> Union[dict, ErrorSchema]:
         """
         Analyze security implications using the security analyst agent.
         
@@ -151,10 +158,11 @@ class QualityAgents(AgentBase):
         """
         if not self.has_valid_llm():
             logger.warning("Security analyst agent has no valid LLM configuration")
-            return {
-                "security_analysis": {},
-                "error": "LLM not configured or initialization failed"
-            }
+            return ErrorSchema(
+                error="LLM Error",
+                message="LLM not configured or initialization failed for Security Analyst Agent.",
+                agent_type="security_analyst"
+            ).model_dump(exclude_none=True)
 
         analyst = self.make_security_analyst()
         
@@ -206,31 +214,37 @@ class QualityAgents(AgentBase):
             logger.info(f"Analyzing security for: {feature_description[:50]}...")
             result = crew.kickoff()
             
-            result_str = str(result)
-            json_start = result_str.find('{')
-            json_end = result_str.rfind('}') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                try:
-                    return json.loads(result_str[json_start:json_end])
-                except json.JSONDecodeError as e:
-                    logger.error(f"Failed to parse JSON from security analysis: {e}")
-                    return {
-                        "security_analysis": {},
-                        "error": f"JSON parsing error: {e}"
-                    }
+            parsed_json = robust_json_parser(str(result), context="Security Analysis")
+            if parsed_json:
+                # Check for successful structure AND absence of an 'error' key from LLM
+                if "risk_assessment" in parsed_json and isinstance(parsed_json["risk_assessment"], dict) and "error" not in parsed_json:
+                    return parsed_json # This is the successful data
+                else:
+                    # If "risk_assessment" is missing, or it's not a dict, OR if an "error" key is present in the parsed JSON
+                    logger.warning(f"Parsed JSON for security analysis is invalid or contains an error field. Output: {str(result)[:500]}")
+                    return ErrorSchema(
+                        error="Invalid JSON Structure or LLM Error",
+                        message="Parsed JSON for security analysis is missing 'risk_assessment' dict, has incorrect type, or contains an error indicator from the LLM.",
+                        agent_type="security_analyst",
+                        raw_output=str(result)
+                    ).model_dump(exclude_none=True)
             else:
-                return {
-                    "security_analysis": {},
-                    "error": "No valid JSON found in analysis result"
-                }
+                # robust_json_parser failed
+                logger.error(f"Failed to parse JSON from security analysis. Raw output: {str(result)[:500]}")
+                return ErrorSchema(
+                    error="JSON Parsing Error",
+                    message="Failed to parse JSON output from Security Analyst Agent.",
+                    agent_type="security_analyst",
+                    raw_output=str(result)
+                ).model_dump(exclude_none=True)
                 
         except Exception as e:
-            logger.error(f"Error during security analysis: {e}")
-            return {
-                "security_analysis": {},
-                "error": f"Analysis error: {e}"
-            }
+            logger.error(f"Error during security analysis: {e}", exc_info=True)
+            return ErrorSchema(
+                error="Agent Execution Error",
+                message=f"An unexpected error occurred during security analysis: {str(e)}",
+                agent_type="security_analyst"
+            ).model_dump(exclude_none=True)
 
 if __name__ == "__main__":
     import asyncio

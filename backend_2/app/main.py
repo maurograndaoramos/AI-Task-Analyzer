@@ -1,11 +1,12 @@
 """Main application entry point for the AI Task Analysis System."""
 
+import asyncio # Import asyncio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1 import router as api_router
 from app.core.config import settings
-from app.core.db import connect_db, disconnect_db
+from app.core.db import connect_db, disconnect_db, create_tables
 from app.core.logging_config import setup_logging
 from app.core.middleware import setup_middleware
 from app.core.errors import setup_error_handlers
@@ -40,8 +41,9 @@ app.include_router(api_router, prefix=settings.API_V1_PREFIX)
 
 @app.on_event("startup")
 async def startup():
-    """Connect to database on startup."""
+    """Connect to database and create tables on startup."""
     await connect_db()
+    await asyncio.to_thread(create_tables) # Create tables in a separate thread
 
 @app.on_event("shutdown")
 async def shutdown():

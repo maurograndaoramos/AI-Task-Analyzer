@@ -39,8 +39,9 @@ class AgentBase:
         try:
             llm = ChatLiteLLM(
                 model="gemini/gemini-2.0-flash",
+                max_tokens=8000  # Increase output token limit
             )
-            logger.info("LLM initialized successfully with model: gemini/gemini-2.0-flash")
+            logger.info("LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000")
             return llm
         except Exception as e:
             logger.error(f"Error initializing LLM: {e}")

@@ -1,8 +1,10 @@
-from typing import Optional
+from typing import Optional, Dict, Union # Added Dict, Union
 from crewai import Agent, Task, Crew
 import json
 import logging
 from ..agent_base import AgentBase
+from ....utils.json_parser import robust_json_parser # Import the new parser
+from ....api.v1.schemas import ErrorSchema # Import ErrorSchema for typing and structure
 
 logger = logging.getLogger(__name__)
 
@@ -44,10 +46,14 @@ class TaskAnalyzerAgent(AgentBase):
         """
         if not self.has_valid_llm():
             logger.warning("Task analyzer agent has no valid LLM configuration")
+            # For this agent, the return type in TaskService is directly Dict[str, Optional[str]]
+            # So, we return a dict that includes an error key, rather than a full ErrorSchema object
+            # to align with how its output is currently consumed.
+            # Alternatively, TaskService could be updated to expect Union[Dict, ErrorSchema]
             return {
                 "category": None,
                 "priority": None,
-                "error": "LLM not configured or initialization failed"
+                "error": "LLM Error: LLM not configured or initialization failed for Task Analyzer Agent."
             }
 
         analyzer = self.make_agent()
@@ -73,46 +79,49 @@ class TaskAnalyzerAgent(AgentBase):
             logger.info(f"Analyzing task: {description[:50]}...")
             result = crew.kickoff()
             
-            # Handle result parsing
-            result_str = str(result)
-            logger.info(f"Raw analysis result: {result_str}")
+            parsed_json = robust_json_parser(str(result), context="Task Analysis (Category/Priority)")
             
-            # Extract JSON from the result
-            json_start = result_str.find('{')
-            json_end = result_str.rfind('}') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                json_str = result_str[json_start:json_end]
-                try:
-                    parsed_result = json.loads(json_str)
-                    category = parsed_result.get("category")
-                    priority = parsed_result.get("priority")
-                    
-                    return {
-                        "category": category,
-                        "priority": priority
-                    }
-                except json.JSONDecodeError as e:
-                    logger.error(f"Failed to parse JSON from result: {e}")
+            if parsed_json:
+                category = parsed_json.get("category")
+                priority = parsed_json.get("priority")
+                llm_error = parsed_json.get("error") # Check if LLM included an error field
+
+                if llm_error: # If LLM itself reported an error in its JSON
+                    logger.warning(f"LLM reported an error in its JSON for task analysis: {llm_error}. Output: {str(result)[:500]}")
                     return {
                         "category": None,
                         "priority": None,
-                        "error": f"JSON parsing error: {e}"
+                        "error": f"LLM Error in JSON: {llm_error}"
                     }
-            else:
-                logger.warning("No JSON object found in analysis result")
+                
+                # Basic validation for expected keys
+                if category is not None and priority is not None:
+                    return {
+                        "category": category,
+                        "priority": priority,
+                        "error": None # Explicitly set error to None on success
+                    }
+                else: # Keys missing, structure is invalid
+                    logger.warning(f"Parsed JSON for task analysis is missing 'category' or 'priority'. Output: {str(result)[:500]}")
+                    return {
+                        "category": None,
+                        "priority": None,
+                        "error": "Invalid JSON Structure: Parsed JSON for task analysis is missing 'category' or 'priority'."
+                    }
+            else: # robust_json_parser failed
+                logger.error(f"Failed to parse JSON from task analysis. Raw output: {str(result)[:500]}")
                 return {
                     "category": None,
                     "priority": None,
-                    "error": "No valid JSON found in analysis result"
+                    "error": "JSON Parsing Error: Failed to parse JSON output from Task Analyzer Agent."
                 }
                 
         except Exception as e:
-            logger.error(f"Error during task analysis: {e}")
+            logger.error(f"Error during task analysis: {e}", exc_info=True)
             return {
                 "category": None,
                 "priority": None,
-                "error": f"Analysis error: {e}"
+                "error": f"Agent Execution Error: An unexpected error occurred during task analysis: {str(e)}"
             }
 
 

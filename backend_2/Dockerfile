@@ -10,7 +10,6 @@ RUN uv pip install --system --no-cache-dir -r requirements.prod.txt
 # Set up app
 WORKDIR /app
 COPY app/ app/
-COPY .env.example .env
 
 # Create necessary directories
 RUN mkdir -p logs data

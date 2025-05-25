@@ -108,7 +108,9 @@ async def disconnect_db():
 
 def create_tables():
     """Create database tables if they don't exist."""
-    engine = create_engine(DATABASE_URL)
+    # Use a purely synchronous engine for DDL operations
+    sync_db_url = DATABASE_URL.replace("+aiosqlite", "")
+    engine = create_engine(sync_db_url)
     try:
         metadata.create_all(engine)
         print("Successfully created database tables")

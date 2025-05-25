@@ -1,8 +1,10 @@
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Union # Added Union
 from crewai import Agent, Task, Crew
 import json
 import logging
 from ..agent_base import AgentBase
+from ....utils.json_parser import robust_json_parser # Import the new parser
+from ....api.v1.schemas import ErrorSchema # Import ErrorSchema for typing and structure
 
 logger = logging.getLogger(__name__)
 
@@ -58,10 +60,11 @@ class OperationsAgents(AgentBase):
         """
         if not self.has_valid_llm():
             logger.warning("Project manager agent has no valid LLM configuration")
-            return {
-                "timeline": {},
-                "error": "LLM not configured or initialization failed"
-            }
+            return ErrorSchema(
+                error="LLM Error",
+                message="LLM not configured or initialization failed for Project Manager Agent.",
+                agent_type="project_manager"
+            ).model_dump(exclude_none=True)
 
         pm = self.make_project_manager()
         
@@ -108,34 +111,38 @@ class OperationsAgents(AgentBase):
             logger.info("Estimating project timeline...")
             result = crew.kickoff()
             
-            result_str = str(result)
-            json_start = result_str.find('{')
-            json_end = result_str.rfind('}') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                try:
-                    return json.loads(result_str[json_start:json_end])
-                except json.JSONDecodeError as e:
-                    logger.error(f"Failed to parse JSON from timeline estimation: {e}")
-                    return {
-                        "timeline": {},
-                        "error": f"JSON parsing error: {e}"
-                    }
+            parsed_json = robust_json_parser(str(result), context="Timeline Estimation")
+            if parsed_json:
+                # Basic validation: check if 'timeline' key exists (as per example output)
+                if "timeline" in parsed_json and isinstance(parsed_json["timeline"], dict):
+                    return parsed_json
+                else:
+                    logger.warning(f"Parsed JSON for timeline estimation is missing 'timeline' dict. Output: {str(result)[:500]}")
+                    return ErrorSchema(
+                        error="Invalid JSON Structure",
+                        message="Parsed JSON for timeline estimation is missing 'timeline' dict or has incorrect type.",
+                        agent_type="project_manager",
+                        raw_output=str(result)
+                    ).model_dump(exclude_none=True)
             else:
-                return {
-                    "timeline": {},
-                    "error": "No valid JSON found in estimation result"
-                }
+                logger.error(f"Failed to parse JSON from timeline estimation. Raw output: {str(result)[:500]}")
+                return ErrorSchema(
+                    error="JSON Parsing Error",
+                    message="Failed to parse JSON output from Project Manager Agent.",
+                    agent_type="project_manager",
+                    raw_output=str(result)
+                ).model_dump(exclude_none=True)
                 
         except Exception as e:
-            logger.error(f"Error during timeline estimation: {e}")
-            return {
-                "timeline": {},
-                "error": f"Estimation error: {e}"
-            }
+            logger.error(f"Error during timeline estimation: {e}", exc_info=True)
+            return ErrorSchema(
+                error="Agent Execution Error",
+                message=f"An unexpected error occurred during timeline estimation: {str(e)}",
+                agent_type="project_manager"
+            ).model_dump(exclude_none=True)
 
     async def plan_infrastructure(self, feature_description: str, technical_requirements: Dict,
-                              scale_requirements: Dict = None, context: str = "") -> dict:
+                              scale_requirements: Dict = None, context: str = "") -> Union[dict, ErrorSchema]:
         """
         Plan infrastructure and CI/CD requirements using the DevOps specialist agent.
         
@@ -150,10 +157,11 @@ class OperationsAgents(AgentBase):
         """
         if not self.has_valid_llm():
             logger.warning("DevOps specialist agent has no valid LLM configuration")
-            return {
-                "infrastructure": {},
-                "error": "LLM not configured or initialization failed"
-            }
+            return ErrorSchema(
+                error="LLM Error",
+                message="LLM not configured or initialization failed for DevOps Specialist Agent.",
+                agent_type="devops_specialist"
+            ).model_dump(exclude_none=True)
 
         devops = self.make_devops_specialist()
         
@@ -207,31 +215,52 @@ class OperationsAgents(AgentBase):
             logger.info(f"Planning infrastructure for: {feature_description[:50]}...")
             result = crew.kickoff()
             
-            result_str = str(result)
-            json_start = result_str.find('{')
-            json_end = result_str.rfind('}') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                try:
-                    return json.loads(result_str[json_start:json_end])
-                except json.JSONDecodeError as e:
-                    logger.error(f"Failed to parse JSON from infrastructure plan: {e}")
-                    return {
-                        "infrastructure": {},
-                        "error": f"JSON parsing error: {e}"
-                    }
+            parsed_json = robust_json_parser(str(result), context="Infrastructure Plan")
+            if parsed_json:
+                # Check for successful structure AND absence of an 'error' key from LLM
+                # The original check was quite specific; let's simplify to ensure the main 'infrastructure' key is present
+                # and it's a dictionary, and no 'error' key from LLM.
+                # The Pydantic model `InfrastructureConfig` will do the finer-grained validation later.
+                if ("infrastructure" in parsed_json and 
+                    isinstance(parsed_json["infrastructure"], dict) and
+                    "error" not in parsed_json): # Check for LLM-generated error field
+                    # Further check for essential sub-keys based on InfrastructureConfig and example
+                    if (all(k in parsed_json for k in ["ci_cd", "monitoring", "security_measures"]) and
+                        all(k in parsed_json["infrastructure"] for k in ["compute", "storage"])):
+                        return parsed_json # This is the successful data
+                    else:
+                        logger.warning(f"Parsed JSON for infrastructure plan is missing some expected sub-keys. Output: {str(result)[:500]}")
+                        return ErrorSchema(
+                            error="Invalid JSON Structure",
+                            message="Parsed JSON for infrastructure plan is missing some expected sub-keys (e.g., infrastructure.compute, ci_cd).",
+                            agent_type="devops_specialist",
+                            raw_output=str(result)
+                        ).model_dump(exclude_none=True)
+                else:
+                    logger.warning(f"Parsed JSON for infrastructure plan is invalid or contains an error field. Output: {str(result)[:500]}")
+                    return ErrorSchema(
+                        error="Invalid JSON Structure or LLM Error",
+                        message="Parsed JSON for infrastructure plan is missing 'infrastructure' dict, has incorrect type, or contains an error indicator from the LLM.",
+                        agent_type="devops_specialist",
+                        raw_output=str(result)
+                    ).model_dump(exclude_none=True)
             else:
-                return {
-                    "infrastructure": {},
-                    "error": "No valid JSON found in planning result"
-                }
+                # robust_json_parser failed
+                logger.error(f"Failed to parse JSON from infrastructure plan. Raw output: {str(result)[:500]}")
+                return ErrorSchema(
+                    error="JSON Parsing Error",
+                    message="Failed to parse JSON output from DevOps Specialist Agent.",
+                    agent_type="devops_specialist",
+                    raw_output=str(result)
+                ).model_dump(exclude_none=True)
                 
         except Exception as e:
-            logger.error(f"Error during infrastructure planning: {e}")
-            return {
-                "infrastructure": {},
-                "error": f"Planning error: {e}"
-            }
+            logger.error(f"Error during infrastructure planning: {e}", exc_info=True)
+            return ErrorSchema(
+                error="Agent Execution Error",
+                message=f"An unexpected error occurred during infrastructure planning: {str(e)}",
+                agent_type="devops_specialist"
+            ).model_dump(exclude_none=True)
 
 if __name__ == "__main__":
     import asyncio
