@@ -1,0 +1,1033 @@
+2025-05-25 19:26:19 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:26:19 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:26:19 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:26:19 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:26:19 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:34:09 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: create the users table with proper indexes on emai... [task_analyzer_agent.py:73]
+2025-05-25 19:34:09 - app.agents.base.agents.task_analyzer_agent - ERROR - Error during task analysis: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [task_analyzer_agent.py:111]
+2025-05-25 19:34:09 - app.agents.base.agents.product_agents - INFO - Generating user stories for: create the users table with proper indexes on emai... [product_agents.py:93]
+2025-05-25 19:34:09 - app.agents.base.agents.product_agents - ERROR - Error generating user stories: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [product_agents.py:118]
+2025-05-25 19:34:09 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:117]
+2025-05-25 19:34:09 - app.agents.base.agents.technical_agents - ERROR - Error during schema design: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [technical_agents.py:140]
+2025-05-25 19:34:09 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: create the users table with proper indexes on emai... [technical_agents.py:201]
+2025-05-25 19:34:10 - app.agents.base.agents.technical_agents - ERROR - Error during task breakdown: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [technical_agents.py:224]
+2025-05-25 19:34:10 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: create the users table with proper indexes on emai... [quality_agents.py:109]
+2025-05-25 19:34:10 - app.agents.base.agents.quality_agents - ERROR - Error during test strategy design: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [quality_agents.py:132]
+2025-05-25 19:34:10 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: create the users table with proper indexes on emai... [quality_agents.py:206]
+2025-05-25 19:34:10 - app.agents.base.agents.quality_agents - ERROR - Error during security analysis: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [quality_agents.py:229]
+2025-05-25 19:34:10 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:108]
+2025-05-25 19:34:10 - app.agents.base.agents.operations_agents - ERROR - Error during timeline estimation: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [operations_agents.py:131]
+2025-05-25 19:34:10 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: create the users table with proper indexes on emai... [operations_agents.py:207]
+2025-05-25 19:34:10 - app.agents.base.agents.operations_agents - ERROR - Error during infrastructure planning: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [operations_agents.py:230]
+2025-05-25 19:46:35 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:46:35 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:46:35 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:46:35 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:46:35 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:49:07 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: Create the users table with proper indexes on emai... [task_analyzer_agent.py:73]
+2025-05-25 19:49:07 - app.agents.base.agents.task_analyzer_agent - ERROR - Error during task analysis: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [task_analyzer_agent.py:111]
+2025-05-25 19:49:07 - app.agents.base.agents.product_agents - INFO - Generating user stories for: Create the users table with proper indexes on emai... [product_agents.py:93]
+2025-05-25 19:49:07 - app.agents.base.agents.product_agents - ERROR - Error generating user stories: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [product_agents.py:118]
+2025-05-25 19:49:07 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:117]
+2025-05-25 19:49:08 - app.agents.base.agents.technical_agents - ERROR - Error during schema design: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [technical_agents.py:140]
+2025-05-25 19:49:08 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: Create the users table with proper indexes on emai... [technical_agents.py:201]
+2025-05-25 19:49:08 - app.agents.base.agents.technical_agents - ERROR - Error during task breakdown: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [technical_agents.py:224]
+2025-05-25 19:49:08 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: Create the users table with proper indexes on emai... [quality_agents.py:109]
+2025-05-25 19:49:08 - app.agents.base.agents.quality_agents - ERROR - Error during test strategy design: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [quality_agents.py:132]
+2025-05-25 19:49:08 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: Create the users table with proper indexes on emai... [quality_agents.py:206]
+2025-05-25 19:49:08 - app.agents.base.agents.quality_agents - ERROR - Error during security analysis: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [quality_agents.py:229]
+2025-05-25 19:49:08 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:108]
+2025-05-25 19:49:09 - app.agents.base.agents.operations_agents - ERROR - Error during timeline estimation: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [operations_agents.py:131]
+2025-05-25 19:49:09 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: Create the users table with proper indexes on emai... [operations_agents.py:207]
+2025-05-25 19:49:09 - app.agents.base.agents.operations_agents - ERROR - Error during infrastructure planning: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [operations_agents.py:230]
+2025-05-25 19:53:54 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:53:54 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:53:54 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:53:54 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:53:54 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 19:54:51 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: Create the users table with proper indexes on emai... [task_analyzer_agent.py:73]
+2025-05-25 19:54:51 - app.agents.base.agents.task_analyzer_agent - ERROR - Error during task analysis: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [task_analyzer_agent.py:111]
+2025-05-25 19:54:51 - app.agents.base.agents.product_agents - INFO - Generating user stories for: Create the users table with proper indexes on emai... [product_agents.py:93]
+2025-05-25 19:54:51 - app.agents.base.agents.product_agents - ERROR - Error generating user stories: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [product_agents.py:118]
+2025-05-25 19:54:51 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:117]
+2025-05-25 19:54:51 - app.agents.base.agents.technical_agents - ERROR - Error during schema design: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [technical_agents.py:140]
+2025-05-25 19:54:51 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: Create the users table with proper indexes on emai... [technical_agents.py:201]
+2025-05-25 19:54:52 - app.agents.base.agents.technical_agents - ERROR - Error during task breakdown: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [technical_agents.py:224]
+2025-05-25 19:54:52 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: Create the users table with proper indexes on emai... [quality_agents.py:109]
+2025-05-25 19:54:52 - app.agents.base.agents.quality_agents - ERROR - Error during test strategy design: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [quality_agents.py:132]
+2025-05-25 19:54:52 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: Create the users table with proper indexes on emai... [quality_agents.py:206]
+2025-05-25 19:54:52 - app.agents.base.agents.quality_agents - ERROR - Error during security analysis: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [quality_agents.py:229]
+2025-05-25 19:54:52 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:108]
+2025-05-25 19:54:52 - app.agents.base.agents.operations_agents - ERROR - Error during timeline estimation: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [operations_agents.py:131]
+2025-05-25 19:54:52 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: Create the users table with proper indexes on emai... [operations_agents.py:207]
+2025-05-25 19:54:52 - app.agents.base.agents.operations_agents - ERROR - Error during infrastructure planning: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [operations_agents.py:230]
+2025-05-25 20:00:46 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:00:46 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:00:46 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:00:46 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:00:46 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:01:44 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: Create the users table with proper indexes on emai... [task_analyzer_agent.py:73]
+2025-05-25 20:01:44 - app.agents.base.agents.task_analyzer_agent - ERROR - Error during task analysis: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [task_analyzer_agent.py:111]
+2025-05-25 20:01:44 - app.agents.base.agents.product_agents - INFO - Generating user stories for: Create the users table with proper indexes on emai... [product_agents.py:93]
+2025-05-25 20:01:44 - app.agents.base.agents.product_agents - ERROR - Error generating user stories: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [product_agents.py:118]
+2025-05-25 20:01:44 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:117]
+2025-05-25 20:01:44 - app.agents.base.agents.technical_agents - ERROR - Error during schema design: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [technical_agents.py:140]
+2025-05-25 20:01:44 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: Create the users table with proper indexes on emai... [technical_agents.py:201]
+2025-05-25 20:01:44 - app.agents.base.agents.technical_agents - ERROR - Error during task breakdown: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [technical_agents.py:224]
+2025-05-25 20:01:44 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: Create the users table with proper indexes on emai... [quality_agents.py:109]
+2025-05-25 20:01:45 - app.agents.base.agents.quality_agents - ERROR - Error during test strategy design: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [quality_agents.py:132]
+2025-05-25 20:01:45 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: Create the users table with proper indexes on emai... [quality_agents.py:206]
+2025-05-25 20:01:45 - app.agents.base.agents.quality_agents - ERROR - Error during security analysis: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [quality_agents.py:229]
+2025-05-25 20:01:45 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:108]
+2025-05-25 20:01:45 - app.agents.base.agents.operations_agents - ERROR - Error during timeline estimation: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [operations_agents.py:131]
+2025-05-25 20:01:45 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: Create the users table with proper indexes on emai... [operations_agents.py:207]
+2025-05-25 20:01:45 - app.agents.base.agents.operations_agents - ERROR - Error during infrastructure planning: litellm.AuthenticationError: geminiException - {
+  "error": {
+    "code": 400,
+    "message": "API key not valid. Please pass a valid API key.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "API_KEY_INVALID",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com"
+        }
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "API key not valid. Please pass a valid API key."
+      }
+    ]
+  }
+}
+ [operations_agents.py:230]
+2025-05-25 20:09:36 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:09:36 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:09:36 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:09:36 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:09:36 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:12:16 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: Create the users table with proper indexes on emai... [task_analyzer_agent.py:73]
+2025-05-25 20:12:17 - app.agents.base.agents.task_analyzer_agent - INFO - Raw analysis result: ```json
+{
+  "category": "Chore",
+  "priority": "High"
+}
+``` [task_analyzer_agent.py:78]
+2025-05-25 20:12:17 - app.agents.base.agents.product_agents - INFO - Generating user stories for: Create the users table with proper indexes on emai... [product_agents.py:93]
+2025-05-25 20:12:20 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:117]
+2025-05-25 20:12:21 - app.agents.base.agents.technical_agents - ERROR - Failed to parse JSON from schema design: Expecting ',' delimiter: line 18 column 10 (char 424) [technical_agents.py:128]
+2025-05-25 20:12:21 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: Create the users table with proper indexes on emai... [technical_agents.py:201]
+2025-05-25 20:12:23 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: Create the users table with proper indexes on emai... [quality_agents.py:109]
+2025-05-25 20:12:25 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: Create the users table with proper indexes on emai... [quality_agents.py:206]
+2025-05-25 20:12:27 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:108]
+2025-05-25 20:12:29 - app.agents.base.agents.operations_agents - ERROR - Failed to parse JSON from timeline estimation: Expecting ',' delimiter: line 21 column 8 (char 439) [operations_agents.py:119]
+2025-05-25 20:12:29 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: Create the users table with proper indexes on emai... [operations_agents.py:207]
+2025-05-25 20:33:03 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:33:03 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:33:03 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:33:03 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:33:03 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:36:39 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:36:39 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:36:39 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:36:39 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:36:39 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:39:57 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:39:57 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:39:57 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:39:57 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:39:57 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:41:41 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:41:41 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:41:41 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:41:41 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:41:41 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 20:42:53 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: Create the users table with proper indexes on emai... [task_analyzer_agent.py:73]
+2025-05-25 20:42:55 - app.agents.base.agents.task_analyzer_agent - INFO - Raw analysis result: ```json
+{
+  "category": "Chore",
+  "priority": "High"
+}
+``` [task_analyzer_agent.py:78]
+2025-05-25 20:42:55 - app.agents.base.agents.product_agents - INFO - Generating user stories for: Create the users table with proper indexes on emai... [product_agents.py:93]
+2025-05-25 20:42:57 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:117]
+2025-05-25 20:42:58 - app.agents.base.agents.technical_agents - ERROR - Failed to parse JSON from schema design: Expecting ',' delimiter: line 24 column 10 (char 595) [technical_agents.py:128]
+2025-05-25 20:42:58 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: Create the users table with proper indexes on emai... [technical_agents.py:201]
+2025-05-25 20:43:00 - app.agents.base.agents.technical_agents - ERROR - Failed to parse JSON from task breakdown: Expecting ',' delimiter: line 10 column 6 (char 530) [technical_agents.py:212]
+2025-05-25 20:43:00 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: Create the users table with proper indexes on emai... [quality_agents.py:109]
+2025-05-25 20:43:02 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: Create the users table with proper indexes on emai... [quality_agents.py:206]
+2025-05-25 20:43:05 - app.agents.base.agents.quality_agents - ERROR - Failed to parse JSON from security analysis: Expecting ',' delimiter: line 9 column 8 (char 478) [quality_agents.py:217]
+2025-05-25 20:43:05 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:108]
+2025-05-25 20:43:06 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: Create the users table with proper indexes on emai... [operations_agents.py:207]
+2025-05-25 20:43:08 - app.agents.base.agents.operations_agents - ERROR - Failed to parse JSON from infrastructure plan: Expecting ',' delimiter: line 25 column 6 (char 582) [operations_agents.py:218]
+2025-05-25 21:05:55 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 21:05:55 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 21:05:55 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 21:05:55 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 21:05:55 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash [agent_base.py:43]
+2025-05-25 21:05:58 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: Create the users table with proper indexes on emai... [task_analyzer_agent.py:79]
+2025-05-25 21:06:00 - app.agents.base.agents.product_agents - INFO - Generating user stories for: Create the users table with proper indexes on emai... [product_agents.py:96]
+2025-05-25 21:06:02 - app.agents.base.agents.product_agents - ERROR - Failed to parse JSON from user stories generation. Raw output: ```json
+{
+  "user_stories": [
+    {
+      "role": "Database Administrator",
+      "goal": "Create a `users` table with appropriate indexes on `email` and `username` fields",
+      "benefit": "Ensure efficient user authentication and data retrieval, minimizing database query times and improving overall system performance.",
+      "acceptance_criteria": [
+        "The `users` table is created in the database with columns for `id`, `username`, `email`, `password`, `created_at`, and `updated_at`.",
+ [product_agents.py:113]
+2025-05-25 21:06:02 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:120]
+2025-05-25 21:06:04 - app.agents.base.agents.technical_agents - ERROR - Failed to parse JSON from DB schema design. Raw output: ```json
+{
+  "tables": [
+    {
+      "name": "users",
+      "fields": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "primary_key": true,
+          "description": "Unique user identifier"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR(255)",
+          "unique": true,
+          "not_null": true,
+          "indexed": true,
+          "description": "User's login username"
+        },
+        {
+          "name": "email",
+          "type": "VARCHA [technical_agents.py:137]
+2025-05-25 21:06:04 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: Create the users table with proper indexes on emai... [technical_agents.py:209]
+2025-05-25 21:06:06 - app.agents.base.agents.technical_agents - ERROR - Failed to parse JSON from task breakdown. Raw output: Okay, I understand. The goal is to break down the feature "Create the users table with proper indexes on email and username" into detailed technical tasks, considering the impact on login speed and overall system performance. I need to produce a JSON object containing these tasks, along with technical considerations and architectural decisions. Given the user story's emphasis on performance, I'll pay close attention to indexing strategies and data types.
+
+Here's the breakdown and the JSON object [technical_agents.py:226]
+2025-05-25 21:06:06 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: Create the users table with proper indexes on emai... [quality_agents.py:112]
+2025-05-25 21:06:08 - app.agents.base.agents.quality_agents - ERROR - Failed to parse JSON from test strategy design. Raw output: Okay, I understand. I need to create a JSON object that details a comprehensive test strategy for creating a "users" table with proper indexes on email and username. The key consideration is the impact of this table's performance on login speed. The test strategy should include unit, integration, and end-to-end tests, with a focus on test coverage, automation, and quality assurance processes. I'll need to define specific scenarios, coverage targets, automation tools, test data strategy, and qual [quality_agents.py:129]
+2025-05-25 21:06:08 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: Create the users table with proper indexes on emai... [quality_agents.py:214]
+2025-05-25 21:06:10 - app.agents.base.agents.quality_agents - ERROR - Failed to parse JSON from security analysis. Raw output: ```json
+{
+  "risk_assessment": {
+    "vulnerabilities": [
+      {
+        "type": "SQL Injection",
+        "severity": "High",
+        "description": "Improperly sanitized input used in queries related to user creation or authentication can lead to SQL injection.  Even with parameterized queries, ORM misconfigurations can introduce this risk.",
+        "mitigation": "Use parameterized queries or prepared statements with proper input validation and output encoding.  Regularly audit ORM configurat [quality_agents.py:233]
+2025-05-25 21:06:10 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:111]
+2025-05-25 21:06:12 - app.agents.base.agents.operations_agents - ERROR - Failed to parse JSON from timeline estimation. Raw output: ```json
+{
+  "timeline": {
+    "total_weeks": 6,
+    "total_story_points": 90,
+    "sprints": [
+      {
+        "sprint": 1,
+        "tasks": ["BE-1: User Authentication", "FE-1: Login Page"],
+        "story_points": 30
+      },
+      {
+        "sprint": 2,
+        "tasks": ["BE-2: Data Model Design", "FE-2: User Profile Page"],
+        "story_points": 30
+      },
+      {
+        "sprint": [operations_agents.py:128]
+2025-05-25 21:06:12 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: Create the users table with proper indexes on emai... [operations_agents.py:215]
+2025-05-25 21:06:14 - app.agents.base.agents.operations_agents - ERROR - Failed to parse JSON from infrastructure plan. Raw output: ```json
+{
+  "infrastructure": {
+    "database": {
+      "type": "managed_sql",
+      "provider": "aws_rds_postgres",
+      "instance_size": "db.t3.medium",
+      "storage_gb": 50,
+      "backup_strategy": "daily",
+      "availability_zone": "multi-az",
+      "indexes": [
+        "email [operations_agents.py:249]
+2025-05-25 21:11:55 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:11:55 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:11:55 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:11:55 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:11:55 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:12:01 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: Create the users table with proper indexes on emai... [task_analyzer_agent.py:79]
+2025-05-25 21:12:03 - app.agents.base.agents.product_agents - INFO - Generating user stories for: Create the users table with proper indexes on emai... [product_agents.py:96]
+2025-05-25 21:12:08 - app.agents.base.agents.product_agents - INFO - Analyzing UX for: Create the users table with proper indexes on emai... [product_agents.py:179]
+2025-05-25 21:12:17 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:120]
+2025-05-25 21:12:27 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: Create the users table with proper indexes on emai... [technical_agents.py:209]
+2025-05-25 21:12:44 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: Create the users table with proper indexes on emai... [quality_agents.py:112]
+2025-05-25 21:12:55 - app.agents.base.agents.quality_agents - WARNING - Parsed JSON for test strategy is missing 'test_levels' dict. Output: Okay, I will design a comprehensive test strategy for the user table creation feature, considering the provided user stories, technical specifications, and context. The test strategy will cover unit, integration, and end-to-end testing, focusing on test coverage, automation, and quality assurance processes. I'll pay close attention to the acceptance criteria for each user story and technical task. The final output will be a JSON object detailing the test strategy and coverage plans.
+
+```json
+{
+  [quality_agents.py:121]
+2025-05-25 21:12:55 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: Create the users table with proper indexes on emai... [quality_agents.py:214]
+2025-05-25 21:13:05 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:111]
+2025-05-25 21:13:10 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: Create the users table with proper indexes on emai... [operations_agents.py:215]
+2025-05-25 21:18:54 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:18:54 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:18:54 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:18:54 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:18:54 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:19:08 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:19:08 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:19:08 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:19:08 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:19:08 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:20:26 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: Test task: Implement user login with email and pas... [task_analyzer_agent.py:79]
+2025-05-25 21:20:27 - app.agents.base.agents.product_agents - INFO - Generating user stories for: Test task: Implement user login with email and pas... [product_agents.py:96]
+2025-05-25 21:20:33 - app.agents.base.agents.product_agents - INFO - Analyzing UX for: Test task: Implement user login with email and pas... [product_agents.py:179]
+2025-05-25 21:20:41 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:120]
+2025-05-25 21:20:49 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: Test task: Implement user login with email and pas... [technical_agents.py:209]
+2025-05-25 21:21:06 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: Test task: Implement user login with email and pas... [quality_agents.py:112]
+2025-05-25 21:21:22 - app.agents.base.agents.quality_agents - WARNING - Parsed JSON for test strategy is missing 'test_levels' dict. Output: ```json
+{
+  "test_strategy": {
+    "overview": "This test strategy outlines the approach to ensure the quality and reliability of the user login feature. It covers various testing levels, automation plans, data strategies, and quality gates.",
+    "test_levels": {
+      "unit_tests": [
+        {
+          "component": "Registration Page UI (FE-1)",
+          "description": "Tests for the registration page UI components.",
+          "scenarios": [
+            "Valid email format",
+            "In [quality_agents.py:121]
+2025-05-25 21:21:22 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: Test task: Implement user login with email and pas... [quality_agents.py:214]
+2025-05-25 21:21:37 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:111]
+2025-05-25 21:21:47 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: Test task: Implement user login with email and pas... [operations_agents.py:215]
+2025-05-25 21:27:11 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:27:11 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:27:11 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:27:11 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:27:11 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:27:56 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: Test task: Implement user login with email and pas... [task_analyzer_agent.py:79]
+2025-05-25 21:27:57 - app.agents.base.agents.product_agents - INFO - Generating user stories for: Test task: Implement user login with email and pas... [product_agents.py:96]
+2025-05-25 21:28:02 - app.agents.base.agents.product_agents - INFO - Analyzing UX for: Test task: Implement user login with email and pas... [product_agents.py:179]
+2025-05-25 21:28:08 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:126]
+2025-05-25 21:28:20 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: Test task: Implement user login with email and pas... [technical_agents.py:215]
+2025-05-25 21:28:37 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: Test task: Implement user login with email and pas... [quality_agents.py:112]
+2025-05-25 21:29:01 - app.agents.base.agents.quality_agents - WARNING - Parsed JSON for test strategy is missing 'test_levels' dict. Output: ```json
+{
+  "test_strategy": {
+    "overview": "This test strategy outlines the approach to ensure the user login feature is robust, secure, and meets the defined user stories and technical specifications. It encompasses unit, integration, and end-to-end testing with a strong emphasis on automation and comprehensive test coverage.",
+    "test_levels": {
+      "unit_tests": [
+        {
+          "component": "User Model",
+          "description": "Tests for the User model class, focusing on data  [quality_agents.py:121]
+2025-05-25 21:29:01 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: Test task: Implement user login with email and pas... [quality_agents.py:214]
+2025-05-25 21:29:17 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:111]
+2025-05-25 21:29:24 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: Test task: Implement user login with email and pas... [operations_agents.py:215]
+2025-05-25 21:35:32 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:35:32 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:35:32 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:35:32 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:35:32 - app.agents.base.agent_base - INFO - LLM initialized successfully with model: gemini/gemini-2.0-flash and max_tokens=8000 [agent_base.py:44]
+2025-05-25 21:35:44 - app.agents.base.agents.task_analyzer_agent - INFO - Analyzing task: Test task: Implement user login with email and pas... [task_analyzer_agent.py:79]
+2025-05-25 21:35:45 - app.agents.base.agents.product_agents - INFO - Generating user stories for: Test task: Implement user login with email and pas... [product_agents.py:96]
+2025-05-25 21:35:50 - app.agents.base.agents.product_agents - INFO - Analyzing UX for: Test task: Implement user login with email and pas... [product_agents.py:179]
+2025-05-25 21:36:03 - app.agents.base.agents.technical_agents - INFO - Designing database schema... [technical_agents.py:126]
+2025-05-25 21:36:10 - app.agents.base.agents.technical_agents - INFO - Breaking down tasks for: Test task: Implement user login with email and pas... [technical_agents.py:215]
+2025-05-25 21:36:19 - app.agents.base.agents.quality_agents - INFO - Designing test strategy for: Test task: Implement user login with email and pas... [quality_agents.py:112]
+2025-05-25 21:36:43 - app.agents.base.agents.quality_agents - WARNING - Parsed JSON for test strategy is missing 'test_levels' dict. Output: ```json
+{
+  "test_strategy": {
+    "overview": "This test strategy outlines the approach for testing the user login feature, ensuring functionality, security, and reliability. It includes unit, integration, and end-to-end tests, with a focus on automation and comprehensive coverage.",
+    "test_levels": {
+      "unit_tests": [
+        {
+          "component": "Registration API Endpoint (BE-1)",
+          "description": "Tests for individual functions and methods within the registration API.",
+   [quality_agents.py:121]
+2025-05-25 21:36:43 - app.agents.base.agents.quality_agents - INFO - Analyzing security for: Test task: Implement user login with email and pas... [quality_agents.py:214]
+2025-05-25 21:36:54 - app.agents.base.agents.operations_agents - INFO - Estimating project timeline... [operations_agents.py:111]
+2025-05-25 21:36:57 - app.agents.base.agents.operations_agents - INFO - Planning infrastructure for: Test task: Implement user login with email and pas... [operations_agents.py:215]
