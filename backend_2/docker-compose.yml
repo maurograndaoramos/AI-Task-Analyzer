@@ -8,6 +8,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
+      - ./tests:/app/tests
     env_file:
       - .env
     healthcheck:

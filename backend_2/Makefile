@@ -13,7 +13,8 @@ run:
 
 test:
 	@echo "Running tests..."
-	pytest
+	docker exec backend_2-api-1 pip install pytest pytest-asyncio
+	docker exec backend_2-api-1 python -m pytest
 
 docker-build:
 	@echo "Building Docker image..."
